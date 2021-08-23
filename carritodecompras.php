@@ -105,6 +105,7 @@
 	</div>
 
 	<section>
+	<div class="toast-container">
 		<?php  
             // suma del precio de los productos comprados
             $total = 0;
@@ -119,26 +120,30 @@
                 
                 for ($i=0; $i < count($datos); $i++) { 
         ?>     
-					<div class="card mb-3" style="max-width: 540px;">
-					<div class="row g-0">
-						<div class="col-md-4">
-						<img src="./productos/<?php echo($datos[$i]['imagen']) ?>" class="img-fluid rounded-start" alt="...">
-						</div>
-						<div class="col-md-8">
-						<div class="card-body">
-							<h5 class="card-title"><span><?php echo($datos[$i]['nombre']) ?></span></h5>
-							<p class="card-text"><span>Precio:$<?php echo($datos[$i]['precio']) ?></span></p>
-							<p class="card-text"><span>Cantidad:
-                   	    	<!-- ponemos el data-attribute precio e id -->
-                   	    	<!-- ponemos una clase cantidad porque iterando y no puede usarse una id; para que jquery la reconozca-->
-                   	    	    <input type="text" value="<?php echo($datos[$i]['cantidad'])?>" size='3' data-precio="<?php echo($datos[$i]['precio']) ?>" data-id="<?php echo($datos[$i]['id']) ?>" class="cantidad" >
-                   	    	</span></p>
-							<p class="card-text"><span class="subtotal">Total Producto:<?php echo($datos[$i]['cantidad']*$datos[$i]['precio'])?></span></p>
-						</div>
+			
+				<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="width: 800px;">
+					<div class="toast-header">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags-fill" viewBox="0 0 16 16">
+						<path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+						<path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z"/>
+						</svg>
+						<small>&nbsp;</small>
+						<strong class="me-auto"><span><?php echo($datos[$i]['nombre']) ?></span></strong>
+						<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+					</div>
+					<div class="toast-body">
+						<div class="row">
+							<div class="col-md-6"><img src="./productos/<?php echo($datos[$i]['imagen']) ?>" style="width: 100px;" class="img-fluid rounded-start" alt="..."></div>
+							<div class="col-md-6"><p class="card-text"><span>Precio:$<?php echo($datos[$i]['precio']) ?></span></p>
+								<p class="card-text"><span>Cantidad:
+								<!-- ponemos el data-attribute precio e id -->
+								<!-- ponemos una clase cantidad porque iterando y no puede usarse una id; para que jquery la reconozca-->
+									<input type="text" value="<?php echo($datos[$i]['cantidad'])?>" size='3' data-precio="<?php echo($datos[$i]['precio']) ?>" data-id="<?php echo($datos[$i]['id']) ?>" class="cantidad" >
+								</span></p>
+								<p class="card-text"><span class="subtotal">Total Producto:<?php echo($datos[$i]['cantidad']*$datos[$i]['precio'])?></span></p></div>
 						</div>
 					</div>
-					</div>   	
-
+				</div>
         <?php    
                     // para cada vuelta de producto, sumamos los precios de las unidades compradas
                     $total = $total + $datos[$i]['precio'] * $datos[$i]['cantidad'];    
@@ -152,8 +157,15 @@
 			echo "<center><h2 id='total'>Total Compra:" .$total. "</h2></center><br>";
 		?>	
         <!-- volvemos al index -->
-		<center><a href="./" class="btn btn-primary">Volver al catálogo</a> </center>		
+		<center><a href="./" class="btn btn-primary">Volver al catálogo</a> </center>
+		</div>		
 	</section>
+
 	
 </body>
+<script>
+$(document).ready(function(){
+  $('.toast').toast('show');
+});
+</script>
 </html>

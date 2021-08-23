@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `productos` (
   `id` int(11) NOT NULL,
   `nombre` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `descrpcion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `imagen` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `precio` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
