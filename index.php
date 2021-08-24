@@ -10,6 +10,11 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 </head>
 <body>
+	<?php  
+	session_start();
+	$datos = $_SESSION['carrito'];
+	$cantidad=$datos[0]['cantidad'];
+	?>
 	<div  class="row col-lg-12">
 		<?php include 'menu.php' ?>
 	</div>

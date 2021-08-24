@@ -83,7 +83,8 @@
        }
 
   }
-
+  $datos = $_SESSION['carrito'];
+  $cantidad=$datos[0]['cantidad'];
  ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -103,62 +104,85 @@
 	<div  class="row col-lg-12">
 		<?php include 'menu.php' ?>
 	</div>
-
 	<section>
-	<div class="toast-container">
-		<?php  
-            // suma del precio de los productos comprados
-            $total = 0;
+	<div class="container">
+		<div class="row">
+			<div class="col-md-7">
+				<?php  
+					// suma del precio de los productos comprados
+					$total = 0;
 
-		    // si está definida la variable de sesión
-		    // la variable de sesión trae un arreglo
-			if (isset($_SESSION['carrito'])){
-                
-                $total = 0;
-                // guardamos la sesión en un array de objetos productos
-                $datos = $_SESSION['carrito'];
-                
-                for ($i=0; $i < count($datos); $i++) { 
-        ?>     
-			
-				<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="width: 800px;">
-					<div class="toast-header">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags-fill" viewBox="0 0 16 16">
-						<path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-						<path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z"/>
-						</svg>
-						<small>&nbsp;</small>
-						<strong class="me-auto"><span><?php echo($datos[$i]['nombre']) ?></span></strong>
-						<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-					</div>
-					<div class="toast-body">
-						<div class="row">
-							<div class="col-md-6"><img src="./productos/<?php echo($datos[$i]['imagen']) ?>" style="width: 100px;" class="img-fluid rounded-start" alt="..."></div>
-							<div class="col-md-6"><p class="card-text"><span>Precio:$<?php echo($datos[$i]['precio']) ?></span></p>
-								<p class="card-text"><span>Cantidad:
-								<!-- ponemos el data-attribute precio e id -->
-								<!-- ponemos una clase cantidad porque iterando y no puede usarse una id; para que jquery la reconozca-->
-									<input type="text" value="<?php echo($datos[$i]['cantidad'])?>" size='3' data-precio="<?php echo($datos[$i]['precio']) ?>" data-id="<?php echo($datos[$i]['id']) ?>" class="cantidad" >
-								</span></p>
-								<p class="card-text"><span class="subtotal">Total Producto:<?php echo($datos[$i]['cantidad']*$datos[$i]['precio'])?></span></p></div>
+					// si está definida la variable de sesión
+					// la variable de sesión trae un arreglo
+					if (isset($_SESSION['carrito'])){
+						
+						$total = 0;
+						// guardamos la sesión en un array de objetos productos
+						$datos = $_SESSION['carrito'];
+						//print_r($datos);
+						
+						for ($i=0; $i < count($datos); $i++) { 
+				?>     
+					
+						<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false" style="width: 800px;">
+							<div class="toast-header">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags-fill" viewBox="0 0 16 16">
+								<path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+								<path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z"/>
+								</svg>
+								<small>&nbsp;</small>
+								<strong class="me-auto"><span><?php echo($datos[$i]['nombre']) ?></span></strong>
+								<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+							</div>
+							<div class="toast-body">
+								<div class="row">
+									<div class="col-md-6"><img src="./productos/<?php echo($datos[$i]['imagen']) ?>" style="width: 100px;" class="img-fluid rounded-start" alt="..."></div>
+									<div class="col-md-6"><p class="card-text"><span>Precio:&nbsp;$<?php echo(number_format($datos[$i]['precio'],1)) ?></span></p>
+										<p class="card-text"><span>Cantidad:
+										<!-- ponemos el data-attribute precio e id -->
+										<!-- ponemos una clase cantidad porque iterando y no puede usarse una id; para que jquery la reconozca-->
+											<input type="text" value="<?php echo($datos[$i]['cantidad'])?>" size='3' data-precio="<?php echo($datos[$i]['precio']) ?>" data-id="<?php echo($datos[$i]['id']) ?>" class="cantidad" >
+										</span></p>
+										<p class="card-text"><span class="subtotal">Total Producto:&nbsp;$<?php echo(number_format($datos[$i]['cantidad']*$datos[$i]['precio'],1))?></span></p>
+									</div>
+								</div>
+							</div>
 						</div>
+				<?php    
+							// para cada vuelta de producto, sumamos los precios de las unidades compradas
+							$total = $total + $datos[$i]['precio'] * $datos[$i]['cantidad'];    
+						}
+				
+					} // si no está definida la variable de sesión
+					else{
+						echo "<center><h2>El Carrito de Compras está vacío</h2></center>";
+					}
+					// calculamos la suma total de todas las unidades de todos los productos
+					//echo "<center><h4 id='total'>Total Compra:  &nbsp" .$total. "</h4></center><br>";
+				?>	
+				<!-- volvemos al index -->
+			</div>
+			<div class="col-md-5">
+				<div class="card h-100">
+					<div class="card-body">
+						<h5 class="card-title">Resumen de Compra</h5>
+						<p class="card-text"> Subtotal:        <?=number_format($total,1)?></p>
+						<p class="card-text"> Descuentos:      $0</p>
+						<p class="card-text"> Gastos de envio: $0</p>
+						<p class="card-text"> <hr></p>
+						<p class="card-text"> Total:         $  <?=number_format($total,1)?></p>
 					</div>
+					<div class="card-footer">
+						<small class="text-muted"><a href="./" class="btn btn-primary">Volver</a></small>
+						<small class="text-muted"><a href="./formu_pago.php" class="btn btn-primary">Pagar</a></small>
+					</div>
+					
 				</div>
-        <?php    
-                    // para cada vuelta de producto, sumamos los precios de las unidades compradas
-                    $total = $total + $datos[$i]['precio'] * $datos[$i]['cantidad'];    
-                }
-         
-			} // si no está definida la variable de sesión
-			else{
-				echo "<center><h2>El Carrito de Compras está vacío</h2></center>";
-			}
-			// calculamos la suma total de todas las unidades de todos los productos
-			echo "<center><h2 id='total'>Total Compra:" .$total. "</h2></center><br>";
-		?>	
-        <!-- volvemos al index -->
-		<center><a href="./" class="btn btn-primary">Volver al catálogo</a> </center>
-		</div>		
+			</div>
+
+		</div>
+		
+	</div>	
 	</section>
 
 	

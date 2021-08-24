@@ -27,21 +27,27 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `productos` (
-  `id` int(11) NOT NULL,
-  `nombre` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `descripcion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `imagen` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `precio` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`nombre` TEXT NOT NULL COLLATE 'utf8_spanish_ci',
+	`descripcion` TEXT NOT NULL COLLATE 'utf8_spanish_ci',
+	`imagen` TEXT NOT NULL COLLATE 'utf8_spanish_ci',
+	`precio` DOUBLE NOT NULL,
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=4
+;
+
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id`, `nombre`, `descrpcion`, `imagen`, `precio`) VALUES
-(1, 'cebolla', 'esta es una cebolla de la antártida', 'cebolla.jpg', 102.32),
-(2, 'cámara', 'esta es una cámara asesina de la kgb', 'camara.jpg', 1282.82),
-(3, 'computadora', 'una computadora interplanetaria', 'computadora.jpg', 4823.42);
+INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `imagen`, `precio`) VALUES (1, 'Celular', 'Este es un celular con 10 mpx 8g de ram ', 'celular.jpg', 102.32);
+INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `imagen`, `precio`) VALUES (2, 'Cámara', 'Esta es una cámara asesina de la kgb', 'camara.jpg', 1282.82);
+INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `imagen`, `precio`) VALUES (3, 'Computadora', 'Una computadora interplanetaria', 'computadora.jpg', 4823.42);
+
 
 --
 -- Índices para tablas volcadas
