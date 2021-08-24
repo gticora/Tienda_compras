@@ -26,13 +26,13 @@
 			while ($f = mysqli_fetch_array($resultado)):
 		?>
 		<div class="card mb-3">
-		<img src="./productos/<?php echo $f['imagen'];?>"  style="width: 400px;" class="card-img-top" alt="...">
+		<img src="./productos/<?=$f['imagen'];?>"  style="width: 400px;" class="card-img-top" alt="...">
 		<div class="card-body">
-			<h5 class="card-title"><span><?php echo $f['nombre'];?></span></h5>
-			<p class="card-text"><span>Precio:&nbsp;&nbsp;$<?php echo $f['precio'];?></span></p>
+			<h5 class="card-title"><span><?=$f['nombre'];?></span></h5>
+			<p class="card-text"><span>Precio:&nbsp;&nbsp;$<?=number_format($f['precio']);?></span></p>
 			<p class="card-text">
 				<small class="text-muted"><a href="./index.php" class="btn btn-primary">Volver a catalogo</a></small>
-				<small class="text-muted"><a href="./carritodecompras.php?id=<?php echo $f['id'] ?>" class="btn btn-primary">Comprar</a></small>
+				<small class="text-muted"><a href="./carritodecompras.php?id=<?=$f['id'] ?>" class="btn btn-primary">Comprar</a></small>
 			</p>
 		</div>
 		</div>
